@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>SASS | Training</title>
+
+        <meta name="description" content="">
+        <meta name="author" content="jared laser">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>SASS</h1>
+                    <h3>style with attitude</h3>
+                </section>
+
+                <section id="why-use-a-preprocessor">
+                    <h3>Why do we need a preprocessor?</h3>
+                    <ul>
+                    <li>CSS is getting cooler but it's still not a language</li>
+                    <li>Editing styles.css doesn't scale</li>
+                    <aside class="notes">
+                        Git history, stylesheet bloat, ⌘ + f isn't fun
+                    </aside>
+                    <li>Add logic</li>
+                    <li>Easily minify</a></li>
+                    <li>Delegate maintenance responsibilities</li>
+                </section>
+
+                <section id="installation">
+                    <h3>How to install</h3>
+                    <p>SASS is just a Ruby gem</p>
+                    <pre><code data-trim>
+$ gem install sass
+$ gem install compass
+                    </code></pre>
+                    <p>Easy, right?</p>
+                </section>
+
+                <section>
+                    <section id="usage">
+                        <h3>Run commands through Compass</h3>
+                        <pre><code data-trim>
+$ compass create &lt;projectname&gt;
+                        </code></pre>
+                    </section>
+                    <section id="configuration">
+                        <h3>Configuration</h3>
+                        <p><code>/config.rb</code> is the control panel for compass settings</p>
+                    </section>
+                    <section id="additional-configuration">
+                        <h3>Additional Configuration</h3>
+                        <p>Compass offers a ton of of settings for you to configure: <a target="_blank" href="http://compass-style.org/help/tutorials/configuration-reference">http://compass-style.org/help/tutorials/configuration-reference</a></p>
+                    </section>
+                </section>
+
+                <section id="lingo">
+                    <section id="variables">
+                        <h3>Use variables in your SCSS</h3>
+                        <pre><code data-trim>
+$red: #b75548;
+a {
+    color: $red;
+}
+                        </code></pre>
+                        <div class="fragment">
+                            <p>compiles to:</p>
+                            <pre><code data-trim>
+a {
+    color: #b75548;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section id="functions">
+                        <h3>functions rule, math sucks!</h3>
+                        <p>instead of pulling out your calculator...</p>
+                        <pre><code data-trim>
+$baseFont: 16;
+
+body {
+    font-size: 16px;
+}
+
+.content p {
+    font-size: 0.8125em; /* 13px / 16px */
+}
+                        </code></pre>
+                        <div class="fragment">
+                            <pre><code data-trim>
+@function em($value, $context:$baseFont) {
+    @return ($value / $context) * 1em;
+}
+
+.content p {
+    font-size: em(13);
+}
+                            </code></pre>
+                        </div>
+                        <div class="fragment">
+                            <p>compiles to:</p>
+                            <pre><code data-trim>
+.content p {
+    font-size: 0.8125em;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section id="mixins">
+                        <h3>mixins</h3>
+                        <p>Sometimes (oftentimes) you want to repeat a set of styles</p>
+                        <pre><code data-trim>
+.content p {
+    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+}
+                        </code></pre>
+                        <div class="fragment">
+                            <p>yeah, no thanks</p>
+                            <pre><code data-trim>
+$goudy: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+@mixin fontSerif($weight:normal) {
+    font-family: $goudy;
+    font-weight: $weight;
+}
+.content p {
+    @include fontSerif(700);
+}
+                            </code></pre>
+                        </div>
+                        <div class="fragment">
+                            <p>compiles to:</p>
+                            <pre><code data-trim>
+.content p {
+    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+    font-weight: 700;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>extends</h3>
+                        <pre><code data-trim>
+.square {
+    background: red;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #fff;
+}
+
+.circle {
+    background: red;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #fff;
+    border-radius: 100%;
+}
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>extends continued... stay DRY</h3>
+                        <pre><code data-trim>
+.square {
+    background: red;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #fff;
+}
+
+.circle {
+    @extend .square;
+    border-radius: 100%;
+}
+                        </code></pre>
+                        <div class="fragment">
+                            <p>compiles to:</p>
+                            <pre><code data-trim>
+.square, .circle {
+    background: red;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #fff;
+}
+
+.cricle {
+    border-radius: 100%;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>silent extends</h3>
+                        <p>what if there's css we don't need?</p>
+                        <pre><code data-trim>
+.button {
+    padding: 5px 20px;
+    border: 1px solid #fff;
+    font-family: "Helvetica", arial, sans-serif;
+}
+
+.button-orange {
+    @extend .button;
+    background: #ffbb6b;
+}
+                        </code></pre>
+                        <div class="fragment">
+                            <pre><code data-trim>
+%button {
+    padding: 5px 20px;
+    border: 1px solid #fff;
+    font-family: "Helvetica", arial, sans-serif;
+}
+
+.button-orange {
+    @extend %button;
+    background: #ffbb6b;
+}
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="like-a-boss">
+                    <h3>let's get boss status</h3>
+                    <div class="fragment">
+                        <img src="images/boss.jpg">
+                    </div>
+                </section>
+
+                <section id="environments">
+                    <h3>environments</h3>
+                    <p>configure compass output based on your environment needs</p>
+                    <pre><code data-trim>
+if environment == :development
+  line_comments = true
+  output_style = :expanded
+  line_comments = false
+end
+
+if environment == :production
+  line_comments = true
+  output_style = :compressed
+end
+                    </code></pre>
+                    <p>then fire off your compass task</p>
+                    <pre><code data-trim>
+                        compass compile -e production --force
+                    </code></pre>
+                </section>
+
+                <section id="partials">
+                    <section>
+                        <h3>partials</h3>
+                        <p>know what's not fun? http requests</p>
+                        <pre><code data-trim>
+@import url('/css/typography.css');
+@import url('/css/layout.css');
+@import url('/css/color.css');
+                        </code></pre>
+                        <p class="fragment">also not fun? browsing 6,000 lines of css to edit one line</p>
+                    </section>
+                    <section>
+                        <h3>enter partials</h3>
+                        <p>no more imports, file lengths are manageable & descriptive. no css in sceen.scss</p>
+                        <pre><code data-trim>
+sass
+├── component
+│   ├── _columns.scss
+│   └── _signup.scss
+├── lib
+│   ├── _animation.scss
+│   ├── _carousel.scss
+│   ├── _mediaQueries.scss
+│   └── _normalize.scss
+├── screen.scss
+└── section
+    ├── _faq.scss
+    ├── _feedback.scss
+    ├── _footer.scss
+    └── _sidebar.scss
+                        </code></pre>
+                        <div class="fragment">
+                            <pre><code data-trim>
+// utility / helper
+@import "compass";
+@import "modules/_defaults";
+@import "modules/_helpers";
+
+// libraries
+@import "lib/_mediaQueries";
+@import "lib/_normalize";
+
+// components
+@import "component/_layout";
+@import "component/_navigation";
+                            </code></pre>
+                        </div>
+                    </section>
+                </section>
+
+                <section id="add-more">
+                    <p>Add more to SASS</p>
+                    <ul>
+                        <li><a href="http://compass-style.org/install/">Compass</a></li>
+                        <li><a href="http://bourbon.io">Bourbon</a></li>
+                        <li><a href="http://susy.oddbird.net/guides/getting-started/">Susy</a></li>
+                        <li><a href="http://rubygems.org/search?utf8=%E2%9C%93&query=sass">Go nuts.</a></li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                rollingLinks: false,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
