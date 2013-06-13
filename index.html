@@ -302,8 +302,7 @@ sass
     ├── _footer.scss
     └── _sidebar.scss
                         </code></pre>
-                        <div class="fragment">
-                            <pre><code data-trim>
+                        <pre><code data-trim>
 // utility / helper
 @import "compass";
 @import "modules/_defaults";
@@ -316,9 +315,84 @@ sass
 // components
 @import "component/_layout";
 @import "component/_navigation";
-                            </code></pre>
-                        </div>
+                        </code></pre>
                     </section>
+                </section>
+
+                <section class="sass-helpers">
+                    <h3>SASS helper functions</h3>
+                    <pre><code data-trim>
+a {
+    color: pink;
+    a &:hover {
+        color: darken(pink, 20%);
+    }
+}
+                    </code></pre>
+                    <p><a target="_blank" href="http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html">Reference: http://sass-lang.com/docs/yardoc/Sass/Script/Functions.html</a></p>
+                </section>
+
+                <section>
+                    <h3>did i mention?</h3>
+                    <p>i hate doing math</p>
+                    <pre><code data-trim>
+// layout
+$siteWidth: 1000px;
+$mainColumnWidth: 665px;
+$mainColumnSpacing: 20px;
+
+%column-left-of-two {
+  width: $mainColumnWidth;
+  padding: 0 $mainColumnSpacing 0 0;
+  float: left;
+}
+
+// sidebar
+%column-right-of-two {
+  width: $siteWidth - ($mainColumnWidth + $mainColumnSpacing );
+  float: left;
+  padding: 0 0 0 $mainColumnSpacing;
+}
+                    </code></pre>
+                </section>
+
+                <section id="variable-usage">
+                    <h3>flexible variables</h3>
+                    <p>don't be afraid to be verbose</p>
+                    <pre><code data-trim>
+$red: #ff0000;
+a {
+    color: $red;
+}
+.button {
+    color: $red;
+}
+.container {
+    border: 1px solid $red;
+}
+                    </code></pre>
+                    <div class="fragment">
+                        <p>instead</p>
+                        <pre><code data-trim>
+$red: #ff0000;
+$mainAccent: $red;
+a {
+    color: $mainAccent;
+}
+.button {
+    color: $mainAccent;
+}
+.container {
+    border: 1px solid $mainAccent;
+}
+                        </code></pre>
+                    </div>
+                    <p><a target="_blank" href="http://sachagreif.com/sass-color-variables/">reference: http://sachagreif.com/sass-color-variables/</a></p>
+                </section>
+
+                <section id="source-maps">
+                    <h3>source maps</h3>
+                    <p>debugging can be awesome</p>
                 </section>
 
                 <section id="add-more">

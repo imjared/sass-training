@@ -32,3 +32,7 @@ sass-training
 - spriting
 - source maps
 
+## Common gotchas
+- nesting
+- verbosity
+
