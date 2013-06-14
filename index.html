@@ -71,6 +71,14 @@ $ compass create &lt;projectname&gt;
                     <section id="configuration">
                         <h3>Configuration</h3>
                         <p><code>/config.rb</code> is the control panel for compass settings</p>
+                        <pre><code data-trim>
+# Set this to the root of your project when deployed:
+http_path = "/"
+css_dir = "stylesheets"
+sass_dir = "sass"
+images_dir = "images"
+javascripts_dir = "javascripts"
+                        </code></pre>
                     </section>
                     <section id="additional-configuration">
                         <h3>Additional Configuration</h3>
@@ -135,13 +143,15 @@ body {
                         <p>Sometimes (oftentimes) you want to repeat a set of styles</p>
                         <pre><code data-trim>
 .content p {
-    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+    font-family: "Goudy Old Style", Garamond,
+                 "Big Caslon", "Times New Roman", serif;
 }
                         </code></pre>
                         <div class="fragment">
                             <p>yeah, no thanks</p>
                             <pre><code data-trim>
-$goudy: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+$goudy: "Goudy Old Style", Garamond,
+        "Big Caslon", "Times New Roman", serif;
 @mixin fontSerif($weight:normal) {
     font-family: $goudy;
     font-weight: $weight;
@@ -155,7 +165,8 @@ $goudy: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
                             <p>compiles to:</p>
                             <pre><code data-trim>
 .content p {
-    font-family: "Goudy Old Style", Garamond, "Big Caslon", "Times New Roman", serif;
+    font-family: "Goudy Old Style", Garamond,
+                 "Big Caslon", "Times New Roman", serif;
     font-weight: 700;
 }
                             </code></pre>
@@ -284,7 +295,7 @@ end
                     </section>
                     <section>
                         <h3>enter partials</h3>
-                        <p>no more imports, file lengths are manageable & descriptive. no css in sceen.scss</p>
+                        <p>no more imports, file lengths are manageable & names are descriptive. no css in sceen.scss</p>
                         <pre><code data-trim>
 sass
 ├── component
@@ -374,7 +385,10 @@ a {
                     <div class="fragment">
                         <p>instead</p>
                         <pre><code data-trim>
+// colors
 $red: #ff0000;
+
+// color reference
 $mainAccent: $red;
 a {
     color: $mainAccent;
@@ -386,22 +400,23 @@ a {
     border: 1px solid $mainAccent;
 }
                         </code></pre>
+                        <p><a target="_blank" href="http://sachagreif.com/sass-color-variables/">reference: http://sachagreif.com/sass-color-variables/</a></p>
                     </div>
-                    <p><a target="_blank" href="http://sachagreif.com/sass-color-variables/">reference: http://sachagreif.com/sass-color-variables/</a></p>
                 </section>
 
                 <section id="source-maps">
                     <h3>source maps</h3>
                     <p>debugging can be awesome</p>
+                    <img src="images/sourcemap.png">
                 </section>
 
                 <section id="add-more">
-                    <p>Add more to SASS</p>
+                    <h2>recap</h2>
                     <ul>
-                        <li><a href="http://compass-style.org/install/">Compass</a></li>
-                        <li><a href="http://bourbon.io">Bourbon</a></li>
-                        <li><a href="http://susy.oddbird.net/guides/getting-started/">Susy</a></li>
-                        <li><a href="http://rubygems.org/search?utf8=%E2%9C%93&query=sass">Go nuts.</a></li>
+                        <li>extensible</li>
+                        <li>does work for you</li>
+                        <li>constantly under development</li>
+                        <li>use what you already know- can integrate nicely into existing workflow</li>
                     </ul>
                 </section>
 
