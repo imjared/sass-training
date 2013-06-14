@@ -1,7 +1,3 @@
-to view:
-
-`git clone git@github.com:imjared/sass-training.git && cd sass-training && open index.html`
-
 sass-training
 ==========
 
